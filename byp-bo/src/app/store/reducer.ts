@@ -1,3 +1,6 @@
+import { Action, ActionReducer, createReducer, on, select } from '@ngrx/store';
+import * as AppActions from './actions';
+
 export interface AppState {
   access_token?: string;
   logged: boolean;
@@ -7,10 +10,11 @@ export interface AppState {
   };
 }
 
-export function AppReducer(
-  state = {
+export const AppReducer = createReducer<AppState>(
+  // initialState :
+  {
     logged: false,
-  }
-): AppState {
-  return state;
-}
+  },
+  // actions
+  on(AppActions.authActionSuccess, (s) => ({ ...s, logged: true }))
+);

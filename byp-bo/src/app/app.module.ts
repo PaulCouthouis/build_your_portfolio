@@ -17,6 +17,8 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { AppReducer } from './store/reducer';
 import { PortfoliosComponent } from './portfolios/portfolios.component';
+import { EffectsModule } from '@ngrx/effects';
+import { AppEffects } from './store/effects';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, PortfoliosComponent],
@@ -36,6 +38,7 @@ import { PortfoliosComponent } from './portfolios/portfolios.component';
       logOnly: environment.production,
     }),
     AppRoutingModule,
+    EffectsModule.forRoot([AppEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent],
