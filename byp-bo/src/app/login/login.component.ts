@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { authAction } from '../store/actions';
+import { getLoginError } from '../store/selectors';
 
 @Component({
   selector: 'app-login',
@@ -10,6 +11,7 @@ import { authAction } from '../store/actions';
 })
 export class LoginComponent {
   hidePassword = true;
+  hasLoginError$ = this.store.pipe(select(getLoginError));
 
   fgLogin: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -18,6 +20,7 @@ export class LoginComponent {
 
   wording = {
     title: 'Login',
+    loginError: 'Authentification failed, please retry',
     email: {
       label: 'Email',
       placeholder: 'name@example.com',

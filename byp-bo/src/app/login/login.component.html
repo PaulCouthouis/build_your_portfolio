@@ -5,6 +5,10 @@
 
   <form [formGroup]="fgLogin" (ngSubmit)="tryConnexion()">
     <mat-card-content>
+      <mat-error *ngIf="hasLoginError$ | async">{{
+        wording.loginError
+      }}</mat-error>
+
       <mat-form-field appearance="outline">
         <mat-label>
           {{ wording.email.label }}
@@ -28,7 +32,12 @@
           formControlName="password"
           [type]="hidePassword ? 'password' : 'text'"
         />
-        <button mat-icon-button matSuffix (click)="switchHidePassword()">
+        <button
+          type="button"
+          mat-icon-button
+          matSuffix
+          (click)="switchHidePassword()"
+        >
           <mat-icon>{{
             hidePassword ? 'visibility_off' : 'visibility'
           }}</mat-icon>

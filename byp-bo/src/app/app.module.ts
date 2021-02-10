@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -8,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
@@ -15,14 +17,14 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { AppReducer } from './store/reducer';
 import { PortfoliosComponent } from './portfolios/portfolios.component';
-import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './store/effects';
+import { AppReducer } from './store/reducer';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, PortfoliosComponent],
   imports: [
+    HttpClientModule,
     ReactiveFormsModule,
     MatButtonModule,
     MatCardModule,

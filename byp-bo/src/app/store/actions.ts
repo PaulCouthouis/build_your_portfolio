@@ -5,5 +5,13 @@ export const authAction = createAction(
   props<{ email: string; password: string }>()
 );
 export const authActionSuccess = createAction(
-  '[Login] Authentification Success'
+  '[Login] Authentification Success',
+  props<{
+    access_token: string;
+    user: {
+      email: string;
+      name: string;
+    };
+  }>()
 );
+export const authActionError = createAction('[Login] Authentification Error');
