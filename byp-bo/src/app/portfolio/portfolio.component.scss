@@ -1,0 +1,21 @@
+:host {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+
+  .mat-card {
+    width: 300px;
+  }
+
+  .mat-card-title {
+    line-height: 2em;
+  }
+
+  .mat-form-field {
+    width: 100%;
+  }
+
+  .mat-card-actions {
+    text-align: right;
+  }
+}

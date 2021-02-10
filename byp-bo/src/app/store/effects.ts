@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
-import { of } from 'rxjs';
-import { catchError, map, mergeMap, take, tap } from 'rxjs/operators';
+import { of, forkJoin } from 'rxjs';
+import { catchError, map, mergeMap, pluck, take, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import {
   authAction,
@@ -13,6 +13,8 @@ import {
   getPortfoliosAction,
   getPortfoliosErrorAction,
   getPortfoliosSuccessAction,
+  postPortfolioAction,
+  postPortfolioSuccessAction,
 } from './actions';
 import { Portfolio } from './interfaces';
 import { getAccessToken } from './selectors';
@@ -72,6 +74,33 @@ export class AppEffects {
           })
           .pipe(
             map((r) => getPortfoliosSuccessAction({ portfolios: r })),
+            catchError(() => of(getPortfoliosErrorAction()))
+          )
+      )
+    )
+  );
+
+  postPortfolio$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(postPortfolioAction),
+      mergeMap((payload) =>
+        this.store.pipe(
+          select(getAccessToken),
+          map((token) => ({ payload, token }))
+        )
+      ),
+      mergeMap(({ payload, token }) =>
+        this.httpClient
+          .post(`${environment.api}portfolio`, payload, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .pipe(
+            map(() => {
+              this.router.navigate(['/portfolios']);
+              return postPortfolioSuccessAction(payload);
+            }),
             catchError(() => of(getPortfoliosErrorAction()))
           )
       )

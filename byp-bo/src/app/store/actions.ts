@@ -21,7 +21,7 @@ export const authSuccessAction = createAction(
 export const authErrorAction = createAction('[Login] Authentification Error');
 
 /**
- * All Portfolios
+ * Get All Portfolios
  */
 export const getPortfoliosAction = createAction('[Portfolios] Get All');
 export const getPortfoliosSuccessAction = createAction(
@@ -32,4 +32,19 @@ export const getPortfoliosSuccessAction = createAction(
 );
 export const getPortfoliosErrorAction = createAction(
   '[Porfolios] Get All Error'
+);
+
+/**
+ * Post Portfolio
+ */
+export const postPortfolioAction = createAction(
+  '[Portfolio] Post Porfolio',
+  props<Portfolio>()
+);
+export const postPortfolioSuccessAction = createAction(
+  '[Portfolio] Post Porfolio Success',
+  props<Portfolio>()
+);
+export const postPortfolioErrorAction = createAction(
+  '[Portfolio] Post Porfolio Error'
 );

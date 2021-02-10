@@ -1,6 +1,12 @@
-<button mat-raised-button>Create a new portfolio</button>
+<button mat-raised-button (click)="navigateToNew()">
+  Create a new portfolio
+</button>
 
-<table mat-table [dataSource]="portfolios$">
+<table
+  *ngIf="(portfolios$ | async)?.length"
+  mat-table
+  [dataSource]="portfolios$"
+>
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef>Name</th>
     <td mat-cell *matCellDef="let element">{{ element.name }}</td>

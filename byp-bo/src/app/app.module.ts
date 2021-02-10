@@ -21,9 +21,10 @@ import { LoginComponent } from './login/login.component';
 import { PortfoliosComponent } from './portfolios/portfolios.component';
 import { AppEffects } from './store/effects';
 import { AppReducer } from './store/reducer';
+import { PortfolioComponent } from './portfolio/portfolio.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, PortfoliosComponent],
+  declarations: [AppComponent, LoginComponent, PortfoliosComponent, PortfolioComponent],
   imports: [
     HttpClientModule,
     ReactiveFormsModule,

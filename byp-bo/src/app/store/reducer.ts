@@ -35,5 +35,9 @@ export const AppReducer = createReducer<AppState>(
   on(AppActions.getPortfoliosSuccessAction, (oldState, props) => ({
     ...oldState,
     portfolios: props.portfolios,
+  })),
+  on(AppActions.postPortfolioSuccessAction, (oldState, props) => ({
+    ...oldState,
+    portfolios: [...oldState.portfolios, props],
   }))
 );
