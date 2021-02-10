@@ -11,16 +11,21 @@ export interface AppState {
   };
 }
 
+const lS = {
+  access_token: localStorage.getItem('access_token'),
+  user: {
+    email: localStorage.getItem('user_email') || '',
+    name: localStorage.getItem('user_name') || '',
+  },
+};
+
 export const AppReducer = createReducer<AppState>(
   // initialState :
   {
-    access_token: '',
-    logged: false,
+    access_token: lS.access_token || '',
+    logged: !!lS.access_token && !!lS.user.email && !!lS.user.name,
     loginError: false,
-    user: {
-      email: '',
-      name: '',
-    },
+    user: lS.user,
   },
   // actions
   on(AppActions.authActionSuccess, (oldState, props) => ({

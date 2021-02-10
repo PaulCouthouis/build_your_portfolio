@@ -33,6 +33,10 @@ export class AppEffects {
           .pipe(
             map((r) => {
               if ('access_token' in r) {
+                localStorage.setItem('access_token', r.access_token);
+                localStorage.setItem('user_name', r.user.name);
+                localStorage.setItem('user_email', r.user.email);
+
                 this.router.navigate(['/portfolios']);
                 return authActionSuccess(r);
               }
