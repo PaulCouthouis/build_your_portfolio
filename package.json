@@ -1,0 +1,22 @@
+{
+  "name": "build_your_portfolio",
+  "version": "1.0.0",
+  "description": "build_your_portfolio",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PaulCouthouis/build_your_portfolio.git"
+  },
+  "scripts": {
+    "ng": "ng"
+  },
+  "author": "Paul Couthouis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PaulCouthouis/build_your_portfolio/issues"
+  },
+  "homepage": "https://github.com/PaulCouthouis/build_your_portfolio#readme",
+  "dependencies": {
+    "@angular/cli": "^11.1.4",
+    "npm": "^6.14.11"
+  }
+}
