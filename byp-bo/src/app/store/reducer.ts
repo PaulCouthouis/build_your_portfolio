@@ -1,15 +1,7 @@
-import { Action, ActionReducer, createReducer, on, select } from '@ngrx/store';
-import * as AppActions from './actions';
+import { createReducer, on } from '@ngrx/store';
 
-export interface AppState {
-  access_token?: string;
-  logged: boolean;
-  loginError: boolean;
-  user?: {
-    email: string;
-    name: string;
-  };
-}
+import * as AppActions from './actions';
+import { AppState } from './interfaces';
 
 const lS = {
   access_token: localStorage.getItem('access_token'),
@@ -26,17 +18,22 @@ export const AppReducer = createReducer<AppState>(
     logged: !!lS.access_token && !!lS.user.email && !!lS.user.name,
     loginError: false,
     user: lS.user,
+    portfolios: [],
   },
   // actions
-  on(AppActions.authActionSuccess, (oldState, props) => ({
+  on(AppActions.authSuccessAction, (oldState, props) => ({
     ...oldState,
     access_token: props.access_token,
     logged: true,
     loginError: false,
     user: props.user,
   })),
-  on(AppActions.authActionError, (oldState) => ({
+  on(AppActions.authErrorAction, (oldState) => ({
     ...oldState,
     loginError: true,
+  })),
+  on(AppActions.getPortfoliosSuccessAction, (oldState, props) => ({
+    ...oldState,
+    portfolios: props.portfolios,
   }))
 );
