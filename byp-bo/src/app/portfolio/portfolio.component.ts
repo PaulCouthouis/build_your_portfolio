@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { map, mergeMap, take } from 'rxjs/operators';
 import {
+  deletePortfolioAction,
   getPortfolioAction,
   patchPortfolioAction,
   postPortfolioAction,
 } from '../store/actions';
 import { getPortfolio } from '../store/selectors';
+import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-portfolio',
@@ -17,10 +20,6 @@ import { getPortfolio } from '../store/selectors';
 })
 export class PortfolioComponent implements OnInit {
   private readonly routeId$ = this.route.params.pipe<string>(map((p) => p.id));
-  private readonly params$ = this.routeId$.pipe(
-    map((id) => ({ type: !!parseInt(id, 10) ? 'edit' : id, id })),
-    take(1)
-  );
   private readonly portfolio$ = this.routeId$.pipe(
     map((id) => parseInt(id, 10)),
     mergeMap((id) => this.store.select(getPortfolio, id)),
@@ -32,11 +31,17 @@ export class PortfolioComponent implements OnInit {
     name: new FormControl('', [Validators.required]),
   });
 
+  readonly params$ = this.routeId$.pipe(
+    map((id) => ({ type: !!parseInt(id, 10) ? 'edit' : id, id })),
+    take(1)
+  );
+
   readonly wording$ = this.params$.pipe(
     map(({ type }) =>
       type === 'edit'
         ? {
             title: 'Edit this Portfolio',
+            delete: 'Delete',
             submit: 'Edit',
           }
         : {
@@ -49,7 +54,8 @@ export class PortfolioComponent implements OnInit {
   constructor(
     private readonly store: Store,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -67,6 +73,19 @@ export class PortfolioComponent implements OnInit {
     this.portfolio$.subscribe((portfolio) => {
       this.fgPortfolio.patchValue({ ...portfolio });
     });
+  }
+
+  openDeleteDialog(): void {
+    this.dialog
+      .open(DeleteDialogComponent)
+      .afterClosed()
+      .subscribe((b) => {
+        if (b) {
+          this.store.dispatch(
+            deletePortfolioAction({ id: this.fgPortfolio.value.id })
+          );
+        }
+      });
   }
 
   submitPortfolio(): void {

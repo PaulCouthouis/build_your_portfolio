@@ -76,3 +76,17 @@ export const patchPortfolioSuccessAction = createAction(
 export const patchPortfolioErrorAction = createAction(
   '[Portfolio] Patch Porfolio Error'
 );
+
+/**
+ * Delete Portfolio
+ */
+export const deletePortfolioAction = createAction(
+  '[Portfolio] Delete Porfolio',
+  props<{ id: string }>()
+);
+export const deletePortfolioSuccessAction = createAction(
+  '[Portfolio] Delete Porfolio Success'
+);
+export const deletePortfolioErrorAction = createAction(
+  '[Portfolio] Delete Porfolio Error'
+);

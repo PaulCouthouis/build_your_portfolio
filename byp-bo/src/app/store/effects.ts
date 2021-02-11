@@ -10,6 +10,9 @@ import {
   authAction,
   authErrorAction,
   authSuccessAction,
+  deletePortfolioAction,
+  deletePortfolioErrorAction,
+  deletePortfolioSuccessAction,
   getPortfolioAction,
   getPortfolioErrorAction,
   getPortfoliosAction,
@@ -160,6 +163,33 @@ export class AppEffects {
               return patchPortfolioSuccessAction();
             }),
             catchError(() => of(patchPortfolioErrorAction()))
+          )
+      )
+    )
+  );
+
+  deletePortfolio$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(deletePortfolioAction),
+      mergeMap(({ id }) =>
+        this.store.pipe(
+          select(getAccessToken),
+          map((token) => ({ id, token }))
+        )
+      ),
+      mergeMap(({ id, token }) =>
+        this.httpClient
+          .delete<Portfolio>(`${environment.api}portfolio/${id}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .pipe(
+            map(() => {
+              this.router.navigate(['/portfolios']);
+              return deletePortfolioSuccessAction();
+            }),
+            catchError(() => of(deletePortfolioErrorAction()))
           )
       )
     )

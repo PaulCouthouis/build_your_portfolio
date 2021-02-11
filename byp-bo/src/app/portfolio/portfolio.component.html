@@ -14,6 +14,14 @@
     </mat-card-content>
 
     <mat-card-actions>
+      <button
+        *ngIf="(params$ | async)?.type === 'edit'"
+        mat-button
+        type="button"
+        (click)="openDeleteDialog()"
+      >
+        {{ (wording$ | async)?.delete }}
+      </button>
       <button mat-button type="submit" [disabled]="fgPortfolio.invalid">
         {{ (wording$ | async)?.submit }}
       </button>
