@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { getPortfoliosAction } from '../store/actions';
-import { getPorfolios } from '../store/selectors';
+import { getPortfolios } from '../store/selectors';
 
 @Component({
   selector: 'app-portfolios',
@@ -11,7 +11,7 @@ import { getPorfolios } from '../store/selectors';
 })
 export class PortfoliosComponent implements OnInit {
   readonly displayedColumns: string[] = ['name', 'edit'];
-  readonly portfolios$ = this.store.pipe(select(getPorfolios));
+  readonly portfolios$ = this.store.pipe(select(getPortfolios));
 
   constructor(private readonly store: Store, private readonly router: Router) {}
 

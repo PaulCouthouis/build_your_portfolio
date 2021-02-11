@@ -10,9 +10,12 @@ import {
   authAction,
   authErrorAction,
   authSuccessAction,
+  getPortfolioAction,
+  getPortfolioErrorAction,
   getPortfoliosAction,
   getPortfoliosErrorAction,
   getPortfoliosSuccessAction,
+  getPortfolioSuccessAction,
   postPortfolioAction,
   postPortfolioSuccessAction,
 } from './actions';
@@ -80,6 +83,30 @@ export class AppEffects {
     )
   );
 
+  getPortfolio$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getPortfolioAction),
+      mergeMap((payload) =>
+        this.store.pipe(
+          select(getAccessToken),
+          map((token) => ({ payload, token }))
+        )
+      ),
+      mergeMap(({ payload, token }) =>
+        this.httpClient
+          .get<Portfolio>(`${environment.api}portfolio/${payload.id}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .pipe(
+            map((r) => getPortfolioSuccessAction(r)),
+            catchError(() => of(getPortfolioErrorAction()))
+          )
+      )
+    )
+  );
+
   postPortfolio$ = createEffect(() =>
     this.actions$.pipe(
       ofType(postPortfolioAction),
@@ -99,7 +126,7 @@ export class AppEffects {
           .pipe(
             map(() => {
               this.router.navigate(['/portfolios']);
-              return postPortfolioSuccessAction(payload);
+              return postPortfolioSuccessAction();
             }),
             catchError(() => of(getPortfoliosErrorAction()))
           )

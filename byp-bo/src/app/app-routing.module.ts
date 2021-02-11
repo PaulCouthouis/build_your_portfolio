@@ -18,7 +18,7 @@ const routes: Routes = [
     component: PortfoliosComponent,
   },
   {
-    path: 'portfolio/new',
+    path: 'portfolio/:id',
     canActivate: [CheckLoggedGuard],
     component: PortfolioComponent,
   },
