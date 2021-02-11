@@ -3,7 +3,11 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { map, mergeMap, take } from 'rxjs/operators';
-import { getPortfolioAction, postPortfolioAction } from '../store/actions';
+import {
+  getPortfolioAction,
+  patchPortfolioAction,
+  postPortfolioAction,
+} from '../store/actions';
 import { getPortfolio } from '../store/selectors';
 
 @Component({
@@ -24,6 +28,7 @@ export class PortfolioComponent implements OnInit {
   );
 
   readonly fgPortfolio = new FormGroup({
+    id: new FormControl(''),
     name: new FormControl('', [Validators.required]),
   });
 
@@ -65,13 +70,12 @@ export class PortfolioComponent implements OnInit {
   }
 
   submitPortfolio(): void {
-    this.params$.subscribe(({ type }) => {
-      if (type === 'edit') {
-        return;
-      }
+    const payload = { portfolio: this.fgPortfolio.value };
 
-      // create new
-      this.store.dispatch(postPortfolioAction(this.fgPortfolio.value));
+    this.params$.subscribe(({ type }) => {
+      type === 'edit'
+        ? this.store.dispatch(patchPortfolioAction(payload))
+        : this.store.dispatch(postPortfolioAction(payload));
     });
   }
 }

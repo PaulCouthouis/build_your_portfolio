@@ -43,7 +43,7 @@ export const getPortfolioAction = createAction(
 );
 export const getPortfolioSuccessAction = createAction(
   '[Portfolio] Get Portfolio Success',
-  props<Portfolio>()
+  props<{ portfolio: Portfolio }>()
 );
 export const getPortfolioErrorAction = createAction(
   '[Portfolio] Get Portfolio Error'
@@ -54,11 +54,25 @@ export const getPortfolioErrorAction = createAction(
  */
 export const postPortfolioAction = createAction(
   '[Portfolio] Post Porfolio',
-  props<Portfolio>()
+  props<{ portfolio: Portfolio }>()
 );
 export const postPortfolioSuccessAction = createAction(
   '[Portfolio] Post Porfolio Success'
 );
 export const postPortfolioErrorAction = createAction(
   '[Portfolio] Post Porfolio Error'
+);
+
+/**
+ * Patch Portfolio
+ */
+export const patchPortfolioAction = createAction(
+  '[Portfolio] Patch Porfolio',
+  props<{ portfolio: Portfolio }>()
+);
+export const patchPortfolioSuccessAction = createAction(
+  '[Portfolio] Patch Porfolio Success'
+);
+export const patchPortfolioErrorAction = createAction(
+  '[Portfolio] Patch Porfolio Error'
 );

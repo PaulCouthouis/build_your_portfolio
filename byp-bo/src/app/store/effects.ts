@@ -16,7 +16,11 @@ import {
   getPortfoliosErrorAction,
   getPortfoliosSuccessAction,
   getPortfolioSuccessAction,
+  patchPortfolioAction,
+  patchPortfolioErrorAction,
+  patchPortfolioSuccessAction,
   postPortfolioAction,
+  postPortfolioErrorAction,
   postPortfolioSuccessAction,
 } from './actions';
 import { Portfolio } from './interfaces';
@@ -86,21 +90,21 @@ export class AppEffects {
   getPortfolio$ = createEffect(() =>
     this.actions$.pipe(
       ofType(getPortfolioAction),
-      mergeMap((payload) =>
+      mergeMap(({ id }) =>
         this.store.pipe(
           select(getAccessToken),
-          map((token) => ({ payload, token }))
+          map((token) => ({ id, token }))
         )
       ),
-      mergeMap(({ payload, token }) =>
+      mergeMap(({ id, token }) =>
         this.httpClient
-          .get<Portfolio>(`${environment.api}portfolio/${payload.id}`, {
+          .get<Portfolio>(`${environment.api}portfolio/${id}`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           })
           .pipe(
-            map((r) => getPortfolioSuccessAction(r)),
+            map((portfolio) => getPortfolioSuccessAction({ portfolio })),
             catchError(() => of(getPortfolioErrorAction()))
           )
       )
@@ -110,15 +114,15 @@ export class AppEffects {
   postPortfolio$ = createEffect(() =>
     this.actions$.pipe(
       ofType(postPortfolioAction),
-      mergeMap((payload) =>
+      mergeMap(({ portfolio }) =>
         this.store.pipe(
           select(getAccessToken),
-          map((token) => ({ payload, token }))
+          map((token) => ({ portfolio, token }))
         )
       ),
-      mergeMap(({ payload, token }) =>
+      mergeMap(({ portfolio, token }) =>
         this.httpClient
-          .post(`${environment.api}portfolio`, payload, {
+          .post(`${environment.api}portfolio`, portfolio, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -128,7 +132,34 @@ export class AppEffects {
               this.router.navigate(['/portfolios']);
               return postPortfolioSuccessAction();
             }),
-            catchError(() => of(getPortfoliosErrorAction()))
+            catchError(() => of(postPortfolioErrorAction()))
+          )
+      )
+    )
+  );
+
+  patchPortfolio$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(patchPortfolioAction),
+      mergeMap(({ portfolio }) =>
+        this.store.pipe(
+          select(getAccessToken),
+          map((token) => ({ portfolio, token }))
+        )
+      ),
+      mergeMap(({ portfolio, token }) =>
+        this.httpClient
+          .patch(`${environment.api}portfolio/${portfolio.id}`, portfolio, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .pipe(
+            map(() => {
+              this.router.navigate(['/portfolios']);
+              return patchPortfolioSuccessAction();
+            }),
+            catchError(() => of(patchPortfolioErrorAction()))
           )
       )
     )

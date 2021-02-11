@@ -21,23 +21,27 @@ export const AppReducer = createReducer<AppState>(
     portfolios: [],
   },
   // actions
-  on(AppActions.authSuccessAction, (oldState, props) => ({
+  on(AppActions.authSuccessAction, (oldState, { access_token, user }) => ({
     ...oldState,
-    access_token: props.access_token,
+    access_token,
     logged: true,
     loginError: false,
-    user: props.user,
+    user,
   })),
   on(AppActions.authErrorAction, (oldState) => ({
     ...oldState,
     loginError: true,
   })),
-  on(AppActions.getPortfoliosSuccessAction, (oldState, props) => ({
+  on(AppActions.getPortfoliosSuccessAction, (oldState, { portfolios }) => ({
     ...oldState,
-    portfolios: props.portfolios,
+    portfolios,
   })),
-  on(AppActions.getPortfolioSuccessAction, (oldState, props) => ({
+  on(AppActions.getPortfolioSuccessAction, (oldState, { portfolio }) => ({
     ...oldState,
-    portfolios: [...oldState.portfolios, props],
+    portfolios: oldState.portfolios.length
+      ? oldState.portfolios.map((oldPortfolio) =>
+          oldPortfolio.id === portfolio.id ? portfolio : oldPortfolio
+        )
+      : [portfolio],
   }))
 );
