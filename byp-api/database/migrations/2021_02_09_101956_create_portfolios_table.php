@@ -15,7 +15,13 @@ class CreatePortfoliosTable extends Migration
     {
         Schema::create('portfolios', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 255);
+            $table->string('name', 30);
+            $table->string('job', 30)->nullable($value = true);
+            $table->string('description', 255)->nullable($value = true);
+            $table->string('katakana', 30)->nullable($value = true);
+            $table->boolean('sexe')->nullable($value = true);
+            $table->date('birthday')->nullable($value = true);
+            $table->string('address', 100)->nullable($value = true);
             $table->timestamps();
         });
     }
