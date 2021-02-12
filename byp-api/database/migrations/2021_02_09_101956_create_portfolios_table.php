@@ -17,7 +17,7 @@ class CreatePortfoliosTable extends Migration
             $table->id();
             $table->string('name', 30);
             $table->string('job', 30)->nullable($value = true);
-            $table->string('description', 255)->nullable($value = true);
+            $table->string('description', 125)->nullable($value = true);
             $table->string('katakana', 30)->nullable($value = true);
             $table->boolean('sexe')->nullable($value = true);
             $table->date('birthday')->nullable($value = true);

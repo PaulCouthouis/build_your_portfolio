@@ -28,7 +28,13 @@ export class PortfolioComponent implements OnInit {
 
   readonly fgPortfolio = new FormGroup({
     id: new FormControl(''),
-    name: new FormControl('', [Validators.required]),
+    name: new FormControl('', [Validators.required, Validators.maxLength(30)]),
+    job: new FormControl('', [Validators.maxLength(30)]),
+    description: new FormControl('', [Validators.maxLength(125)]),
+    katakana: new FormControl('', [Validators.maxLength(30)]),
+    sexe: new FormControl(null),
+    birthday: new FormControl(null),
+    address: new FormControl('', [Validators.maxLength(100)]),
   });
 
   readonly params$ = this.routeId$.pipe(
@@ -71,6 +77,7 @@ export class PortfolioComponent implements OnInit {
     });
 
     this.portfolio$.subscribe((portfolio) => {
+      console.log(portfolio);
       this.fgPortfolio.patchValue({ ...portfolio });
     });
   }
