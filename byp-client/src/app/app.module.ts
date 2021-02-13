@@ -10,9 +10,10 @@ import { environment } from '../environments/environment';
 import { AppReducer } from './store/reducer';
 import { AppEffects } from './store/effects';
 import { HttpClientModule } from '@angular/common/http';
+import { PortfolioComponent } from './portfolio/portfolio.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, PortfolioComponent],
   imports: [
     HttpClientModule,
     BrowserModule,
