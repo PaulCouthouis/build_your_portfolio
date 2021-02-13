@@ -1,0 +1,34 @@
+<div>
+  <header>
+    <div class="identity">
+      <img src="https://via.placeholder.com/128" alt="" />
+      <h1>{{ portfolio.name }}</h1>
+      <h2>{{ portfolio.job }}</h2>
+    </div>
+
+    <div class="information">
+      <p>
+        {{ portfolio.description }}
+      </p>
+      <p class="katakana">
+        {{ portfolio.katakana }}
+      </p>
+      <table>
+        <tbody>
+          <tr *ngIf="portfolio.sexe">
+            <th scope="row">性別</th>
+            <td>{{ wording.sexe[portfolio.sexe] }}</td>
+          </tr>
+          <tr *ngIf="portfolio.birthday">
+            <th scope="row">生年月日</th>
+            <td>{{ convertBirthdayToString(portfolio.birthday) }}</td>
+          </tr>
+          <tr *ngIf="portfolio.address">
+            <th scope="row">現住所</th>
+            <td>{{ portfolio.address }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </header>
+</div>

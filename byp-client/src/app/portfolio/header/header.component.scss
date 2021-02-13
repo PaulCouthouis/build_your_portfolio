@@ -1,0 +1,114 @@
+@mixin for-laptop {
+  @media (min-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin for-laptopL {
+  @media (min-width: 1440px) {
+    @content;
+  }
+}
+
+@mixin for-tablet {
+  @media (min-width: 768px) {
+    @content;
+  }
+}
+
+:host {
+  background-color: rgba(0, 0, 0, 0.75);
+  display: block;
+
+  > div {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  header {
+    align-items: center;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 75px 0 75px;
+
+    @include for-laptop() {
+      align-items: inherit;
+      flex-direction: row;
+    }
+
+    @include for-laptopL() {
+      justify-content: space-between;
+      padding-right: 150px;
+      padding-left: 95px;
+
+      &:before {
+        border-top: 1px solid rgba(255, 255, 255, 0.5);
+        content: "";
+        display: block;
+        height: 1px;
+        margin-top: 95px;
+        position: absolute;
+        width: 100%;
+        max-width: 1105px;
+      }
+    }
+  }
+
+  .identity {
+    height: 275px;
+    min-width: 275px;
+
+    text-align: center;
+
+    @include for-laptop() {
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      padding: 30px 0;
+    }
+
+    img {
+      border-radius: 100%;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: normal;
+      margin-top: 30px;
+
+      > span {
+        text-transform: uppercase;
+      }
+    }
+
+    h2 {
+      font-size: 14px;
+      font-weight: normal;
+      margin-top: 10px;
+    }
+  }
+
+  .information {
+    font-size: 14px;
+    line-height: 28px;
+    max-width: 610px;
+    padding: 0 10px;
+
+    @include for-tablet() {
+      padding: 0;
+    }
+  }
+
+  .katakana {
+    font-size: 16px;
+    line-height: 18.75px;
+    margin: 30px 0 10px;
+  }
+
+  th {
+    text-align: left;
+    width: 170px;
+  }
+}

@@ -6,6 +6,10 @@ import { AppState } from './interfaces';
 export const AppReducer = createReducer<AppState>(
   // initialState :
   {
+    current: {
+      id: -1,
+      name: '',
+    },
     portfolios: [],
   },
   // actions
@@ -15,10 +19,6 @@ export const AppReducer = createReducer<AppState>(
   })),
   on(AppActions.getPortfolioSuccessAction, (oldState, { portfolio }) => ({
     ...oldState,
-    portfolios: oldState.portfolios.length
-      ? oldState.portfolios.map((oldPortfolio) =>
-          oldPortfolio.id === portfolio.id ? portfolio : oldPortfolio
-        )
-      : [portfolio],
+    current: portfolio,
   }))
 );

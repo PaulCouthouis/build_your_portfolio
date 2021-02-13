@@ -1,8 +1,7 @@
 <router-outlet></router-outlet>
-
 <footer>
   <h3>List:</h3>
   <p *ngFor="let p of portfolios$ | async">
-    <a [href]="'/' + p.id">{{ p.name }}</a>
+    <a [routerLink]="'/' + p.id">{{ p.name }}</a>
   </p>
 </footer>

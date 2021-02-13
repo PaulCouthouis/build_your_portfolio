@@ -11,9 +11,10 @@ import { AppReducer } from './store/reducer';
 import { AppEffects } from './store/effects';
 import { HttpClientModule } from '@angular/common/http';
 import { PortfolioComponent } from './portfolio/portfolio.component';
+import { HeaderComponent } from './portfolio/header/header.component';
 
 @NgModule({
-  declarations: [AppComponent, PortfolioComponent],
+  declarations: [AppComponent, PortfolioComponent, HeaderComponent],
   imports: [
     HttpClientModule,
     BrowserModule,
