@@ -19,16 +19,16 @@ export class LoginComponent {
   });
 
   wording = {
-    title: 'Login',
-    loginError: 'Authentification failed, please retry',
+    title: 'ログイン',
+    loginError: '認証に失敗しました。',
     email: {
-      label: 'Email',
+      label: 'メール',
       placeholder: 'name@example.com',
     },
     password: {
-      label: 'Password',
+      label: 'パスワード',
     },
-    confirm: 'Connexion',
+    confirm: 'ログイン',
   };
 
   constructor(private store: Store) {}

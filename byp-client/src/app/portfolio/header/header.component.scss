@@ -93,7 +93,8 @@
   .information {
     font-size: 14px;
     line-height: 28px;
-    max-width: 610px;
+    width: 610px;
+    max-width: 100%;
     padding: 0 10px;
 
     @include for-tablet() {

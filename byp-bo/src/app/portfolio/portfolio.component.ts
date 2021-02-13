@@ -46,13 +46,13 @@ export class PortfolioComponent implements OnInit {
     map(({ type }) =>
       type === 'edit'
         ? {
-            title: 'Edit this Portfolio',
-            delete: 'Delete',
-            submit: 'Edit',
+            title: 'このポートフォリオをエディットする',
+            delete: '削除',
+            submit: 'エディット',
           }
         : {
-            title: 'Create a New Portfolio',
-            submit: 'Create',
+            title: '新しいポートフォリオを作成する',
+            submit: '作成する',
           }
     )
   );

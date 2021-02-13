@@ -1,5 +1,5 @@
 <button mat-raised-button routerLink="/portfolio/new">
-  Create a new portfolio
+  新しいポートフォリオを作成する
 </button>
 
 <table
@@ -8,11 +8,11 @@
   [dataSource]="portfolios$"
 >
   <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef>Name</th>
+    <th mat-header-cell *matHeaderCellDef>名前</th>
     <td mat-cell *matCellDef="let element">{{ element.name }}</td>
   </ng-container>
   <ng-container matColumnDef="edit">
-    <th mat-header-cell *matHeaderCellDef>Edit</th>
+    <th mat-header-cell *matHeaderCellDef>エディット</th>
     <td mat-cell *matCellDef="let element">
       <a
         [routerLink]="'/portfolio/' + element.id"
