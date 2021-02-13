@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\PortfolioController;
@@ -17,4 +16,8 @@ use App\Http\Controllers\API\PortfolioController;
 */
 
 Route::post('/login', [AuthController::class, 'login']);
-Route::apiResource('/portfolio', PortfolioController::class)->middleware('auth:api');
+
+$no_token = ['index', 'show'];
+
+Route::apiResource('portfolio', PortfolioController::class)->only($no_token);
+Route::apiResource('portfolio', PortfolioController::class)->except($no_token)->middleware('auth:api');
