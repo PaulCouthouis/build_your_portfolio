@@ -7,7 +7,8 @@
     "url": "git+https://github.com/PaulCouthouis/build_your_portfolio.git"
   },
   "scripts": {
-    "ng": "ng"
+    "ng": "ng",
+    "install:api": "./byp-api composer update"
   },
   "author": "Paul Couthouis",
   "license": "ISC",
